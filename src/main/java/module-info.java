@@ -23,5 +23,7 @@ module com.example.javafx_project {
     opens com.example.javafx_project.dao.impl to javafx.fxml;
     opens com.example.javafx_project.controllers to javafx.fxml;
     opens com.example.javafx_project.entities to javafx.base, com.fasterxml.jackson.databind;
+    exports com.example.javafx_project.dao;
+    opens com.example.javafx_project.dao to javafx.fxml;
 
 }
