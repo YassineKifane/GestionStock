@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity"  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.HomeController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="427.0" fitWidth="652.0" layoutY="-2.0">
+               <image>
+                  <Image url="@../img/inv.jpg" />
+               </image>
+               <effect>
+                  <MotionBlur radius="4.07" />
+               </effect>
+            </ImageView>
+            <Button layoutX="242.0" fx:id="Demandes" layoutY="97.0" mnemonicParsing="false" onAction="#handleDemandesButton" prefHeight="47.0" prefWidth="169.0" text="Demandes" />
+            <Button layoutX="71.0" fx:id="Articles" layoutY="216.0" mnemonicParsing="false" onAction="#handleArticlesButton" prefHeight="47.0" prefWidth="169.0" text="Articles" />
+            <Button layoutX="411.0" fx:id="Operations" layoutY="216.0" mnemonicParsing="false" prefHeight="47.0" onAction="#handleOperationButton" prefWidth="169.0" text="Opérations" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

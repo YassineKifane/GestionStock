@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationAjtController">
+
+    <TableView fx:id="ArticleTableView" prefHeight="418.0" prefWidth="481.0">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="80.16" text="ID" />
+            <TableColumn fx:id="categorieColumn" prefWidth="80.16" text="Catégorie" />
+            <TableColumn fx:id="designationColumn" prefWidth="80.16" text="Désignation" />
+            <TableColumn fx:id="quantiteColumn" prefWidth="80.16" text="Quantité" />
+            <TableColumn fx:id="dateColumn" prefWidth="80.16" text="Date d'Ajout"/>
+            <TableColumn fx:id="editColumn" prefWidth="80.16" text="Edit">
+                <cellValueFactory>
+                    <PropertyValueFactory property="button" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+
+    <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
+    <Button fx:id="btn" layoutX="508.0" layoutY="353.0"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout"  visible="false"/>
+
+</AnchorPane>

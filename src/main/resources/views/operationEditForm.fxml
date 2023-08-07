@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationEditController">
+    <children>
+        <Label layoutX="14.0" layoutY="74.0" prefHeight="17.0" prefWidth="95.0" text="Categorie" />
+        <ComboBox fx:id="categoriebox" layoutX="14.0" layoutY="111.0" prefWidth="150.0" />
+        <Label layoutX="14.0" layoutY="154.0" prefHeight="17.0" prefWidth="95.0" text="Quantite" />
+        <TextField fx:id="quantitefield" layoutX="14.0" layoutY="187.0" />
+        <Label layoutX="367.0" layoutY="78.0" prefHeight="17.0" prefWidth="95.0" text="Designation" />
+        <ComboBox fx:id="designationbox" layoutX="379.0" layoutY="124.0" prefWidth="150.0" />
+        <Label layoutX="367.0" layoutY="171.0" prefHeight="17.0" prefWidth="95.0" text="Date" />
+        <Button fx:id="Valider" layoutX="233.0" layoutY="297.0" mnemonicParsing="false" onAction="#handleValiderButtonAction" text="Valider" />
+        <DatePicker fx:id="datefield" layoutX="367.0" layoutY="200.0" />
+        <Button fx:id="Retour" onAction="#handleRetourButton" layoutX="367.0" layoutY="297.0" mnemonicParsing="false" text="Retour" />
+
+
+
+    </children>
+</AnchorPane>
