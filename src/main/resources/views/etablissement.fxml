@@ -24,6 +24,9 @@
         </columns>
     </TableView>
 
+    <Button fx:id="addEtablissement" layoutX="508.0" layoutY="44.0" onAction="#openEtablissementForm" styleClass="btn, btn-primary" text="Ajouter Etablissement">
+        Add new producer
+    </Button>
 
     <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
 
