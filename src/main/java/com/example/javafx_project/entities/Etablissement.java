@@ -17,6 +17,11 @@ public class Etablissement implements Serializable {
     public Etablissement() {
     }
 
+    public Etablissement(String type, String nom) {
+        this.type = type;
+        this.nom = nom;
+    }
+
     public int getId() {
         return id;
     }

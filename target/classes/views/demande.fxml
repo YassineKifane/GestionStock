@@ -19,10 +19,10 @@
         <Button fx:id="Valider" layoutX="231.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Valider" />
         <DatePicker fx:id="datefield" layoutX="367.0" layoutY="200.0" />
         <Button fx:id="Retour" layoutX="353.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleRetourButton" text="Retour" />
-      <TextField fx:id="typeetab" layoutX="14.0" layoutY="278.0" />
-      <Label layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="134.0" text="Type d'Etablissement" />
-      <TextField fx:id="nometab" layoutX="380.0" layoutY="278.0" />
-      <Label layoutX="380.0" layoutY="250.0" prefHeight="17.0" prefWidth="134.0" text="Nom d'Etablissement" />
+        <ComboBox fx:id="typeetab" layoutX="14.0" layoutY="278.0" prefWidth="150.0" />
+        <Label layoutX="14.0" layoutY="250.0" prefHeight="17.0" prefWidth="134.0" text="Type d'Etablissement" />
+        <ComboBox fx:id="nometab" layoutX="380.0" layoutY="278.0" prefWidth="150.0" />
+        <Label layoutX="380.0" layoutY="250.0" prefHeight="17.0" prefWidth="134.0" text="Nom d'Etablissement" />
 
 
 

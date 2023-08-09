@@ -2,6 +2,7 @@ package com.example.javafx_project.controllers;
 
 import com.example.javafx_project.entities.Article;
 import com.example.javafx_project.services.ArticleService;
+import com.example.javafx_project.services.EtablissementService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,9 @@ public class DemandeController implements Initializable {
     private Button Retour;
 
     private ArticleService articleService;
-    public void handleAddButtonAction(ActionEvent actionEvent) {
+    private EtablissementService etablissementService;
+
+    public void handleAddButtonAction() {
         String cat = categoriebox.getValue().toString(); // Get the selected category from the ComboBox
         String des = designationbox.getValue().toString();
         int quan = Integer.parseInt(quantitefield.getText());
@@ -54,6 +57,7 @@ public class DemandeController implements Initializable {
         article.setDesignation(des);
         article.setQuantite(quan);
         article.setDatedajt(Date.valueOf(date));
+
 
         articleService.Retrait(article,type,nom);
 
@@ -76,11 +80,14 @@ public class DemandeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         articleService = new ArticleService();
+        etablissementService = new EtablissementService();
         populateComboBox();
     }
 
     private void populateComboBox() {
         categoriebox.getItems().addAll(articleService.articleChoice());
         designationbox.getItems().addAll(articleService.designationChoice());
+        typeetab.getItems().addAll(etablissementService.etablissementType());
+        nometab.getItems().addAll(etablissementService.etablissementNom());
     }
 }

@@ -65,4 +65,7 @@ public class HomeController {
         ex.printStackTrace();
     }
     }
+
+    public void handleEtablissementButton() {
+    }
 }
