@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 public class OperationAjtController implements Initializable {
 
     @FXML
-    private TableView<Article> ArticleTableView;
+    private TableView<Article> OperationAjtTableView;
 
     @FXML
     private TableColumn<Article, Integer> idColumn;
@@ -80,7 +80,7 @@ public class OperationAjtController implements Initializable {
         editColumn.setCellFactory(createEditButtonCellFactory());
 
 
-        ArticleTableView.setItems(articleList);
+        OperationAjtTableView.setItems(articleList);
     }
 
     public void openEditOperationForm(Article article) {
@@ -144,8 +144,8 @@ public class OperationAjtController implements Initializable {
 
     private void refreshTableView() {
         List<Article> articles = articleService.findAllOpAjt();
-        ArticleTableView.getItems().clear();
-        ArticleTableView.getItems().addAll(articles);
+        OperationAjtTableView.getItems().clear();
+        OperationAjtTableView.getItems().addAll(articles);
     }
 }
 

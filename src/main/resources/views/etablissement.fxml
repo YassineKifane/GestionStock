@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.etablissementController">
+
+    <TableView fx:id="EtablissementTableView" prefHeight="418.0" prefWidth="500.0">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="80" text="ID" />
+            <TableColumn fx:id="typeColumn" prefWidth="130.4" text="Type d'Etablissement" />
+            <TableColumn fx:id="nomColumn" prefWidth="130.4" text="Nom d'Etablissement" />
+            <TableColumn fx:id="editColumn" prefWidth="80" text="Edit">
+                <cellValueFactory>
+                    <PropertyValueFactory property="button" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="deleteColumn" prefWidth="80" text="Delete">
+                <cellValueFactory>
+                    <PropertyValueFactory property="button" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+
+    <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
+
+</AnchorPane>

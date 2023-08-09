@@ -67,5 +67,17 @@ public class HomeController {
     }
 
     public void handleEtablissementButton() {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/etablissement.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) Operations.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -2,6 +2,8 @@ package com.example.javafx_project.dao.impl;
 
 
 import com.example.javafx_project.dao.EtablissementDao;
+import com.example.javafx_project.entities.Article;
+import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EtablissementImpl implements EtablissementDao {
     private Connection conn = DB.getConnection();
@@ -55,4 +59,37 @@ public class EtablissementImpl implements EtablissementDao {
         }
         return etabname;
     }
+
+    @Override
+    public List<Etablissement> findAll(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT * FROM etablissement");
+            rs = ps.executeQuery();
+
+            List<Etablissement> listEtablissement = new ArrayList<>();
+
+            while (rs.next()) {
+                Etablissement etablissement = new Etablissement();
+                etablissement.setId(rs.getInt("id"));
+                etablissement.setType(rs.getString("type"));
+                etablissement.setNom(rs.getString("nom"));
+                listEtablissement.add(etablissement);
+            }
+
+            return listEtablissement;
+        } catch (SQLException e) {
+            System.err.println("Problème de requête pour sélectionner un Etablissement");
+            e.printStackTrace();
+            return null;
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(ps);
+        }
+    }
+
+
+
 }
