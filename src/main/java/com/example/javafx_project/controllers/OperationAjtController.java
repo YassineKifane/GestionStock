@@ -62,13 +62,13 @@ public class OperationAjtController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         articleService = new ArticleService();
         startAutoRefresh();
-        loadArticle();
+        loadOperation();
         setupTableView();
     }
 
-    private void loadArticle() {
-        List<Article> producers = articleService.findAllOpAjt();
-        articleList = FXCollections.observableArrayList(producers);
+    private void loadOperation() {
+        List<Article> operations = articleService.findAllOpAjt();
+        articleList = FXCollections.observableArrayList(operations);
     }
 
     private void setupTableView() {

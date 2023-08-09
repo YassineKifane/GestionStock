@@ -3,9 +3,11 @@ package com.example.javafx_project.controllers;
 
 import com.example.javafx_project.entities.Article;
 import com.example.javafx_project.entities.Etablissement;
+import com.example.javafx_project.services.ArticleService;
 import com.example.javafx_project.services.EtablissementService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 public class etablissementController implements Initializable {
 
     @FXML
-    private TableView<Etablissement> etablissementTableView;
+    private TableView<Etablissement> EtablissementTableView;
 
     @FXML
     private TableColumn<Etablissement, Integer> idColumn;
@@ -31,13 +33,18 @@ public class etablissementController implements Initializable {
     @FXML
     private TableColumn<Etablissement, String> nomColumn;
 
+    
+
     private EtablissementService etablissementService;
 
     private ObservableList<Etablissement> etablissementsList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        etablissementService = new EtablissementService();
+        startAutoRefresh();
+        loadEtablissement();
+        setupTableView();
     }
 
     private void setupTableView() {
@@ -46,7 +53,12 @@ public class etablissementController implements Initializable {
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
 
-        etablissementTableView.setItems(etablissementsList);
+        EtablissementTableView.setItems(etablissementsList);
+    }
+
+    private void loadEtablissement() {
+        List<Etablissement> etablissements = etablissementService.findAll();
+        etablissementsList = FXCollections.observableArrayList(etablissements);
     }
     private void startAutoRefresh() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
@@ -59,7 +71,7 @@ public class etablissementController implements Initializable {
 
     private void refreshTableView() {
         List<Etablissement> etablissements = etablissementService.findAll();
-        etablissementTableView.getItems().clear();
-        etablissementTableView.getItems().addAll(etablissements);
+        EtablissementTableView.getItems().clear();
+        EtablissementTableView.getItems().addAll(etablissements);
     }
 }

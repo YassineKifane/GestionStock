@@ -9,7 +9,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationAjtController">
 
-    <TableView fx:id="ArticleTableView" prefHeight="418.0" prefWidth="481.0">
+    <TableView fx:id="OperationAjtTableView" prefHeight="418.0" prefWidth="481.0">
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="80.16" text="ID" />
             <TableColumn fx:id="categorieColumn" prefWidth="80.16" text="Catégorie" />

@@ -74,8 +74,8 @@ public class EtablissementImpl implements EtablissementDao {
             while (rs.next()) {
                 Etablissement etablissement = new Etablissement();
                 etablissement.setId(rs.getInt("id"));
-                etablissement.setType(rs.getString("type"));
-                etablissement.setNom(rs.getString("nom"));
+                etablissement.setType(rs.getString("etabtype"));
+                etablissement.setNom(rs.getString("etabnom"));
                 listEtablissement.add(etablissement);
             }
 

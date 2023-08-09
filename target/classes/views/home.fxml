@@ -22,7 +22,7 @@
             <Button fx:id="Demandes" layoutX="411.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleDemandesButton" prefHeight="47.0" prefWidth="169.0" text="Demandes" />
             <Button fx:id="Articles" layoutX="96.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleArticlesButton" prefHeight="47.0" prefWidth="169.0" text="Articles" />
             <Button fx:id="Operations" layoutX="411.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleOperationButton" prefHeight="47.0" prefWidth="169.0" text="Opérations" />
-            <Button fx:id="Articles1" layoutX="96.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleArticlesButton" prefHeight="47.0" prefWidth="169.0" text="Etablissement" />
+            <Button fx:id="Etablissement" layoutX="96.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleEtablissementButton" prefHeight="47.0" prefWidth="169.0" text="Etablissement" />
          </children>
       </AnchorPane>
    </center>
