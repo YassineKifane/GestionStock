@@ -65,6 +65,7 @@ public class EtablissementController implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         deleteColumn.setCellFactory(createDeleteButtonCellFactory());
+        editColumn.setCellFactory(createDeleteButtonCellFactory());
 
         EtablissementTableView.setItems(etablissementsList);
     }
