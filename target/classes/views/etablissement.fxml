@@ -4,7 +4,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.etablissementController">
+<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.EtablissementController">
 
     <TableView fx:id="EtablissementTableView" prefHeight="418.0" prefWidth="500.0">
         <columns>
@@ -24,6 +24,9 @@
         </columns>
     </TableView>
 
+    <Button fx:id="addEtablissement" layoutX="508.0" layoutY="44.0" onAction="#openEtablissementForm" styleClass="btn, btn-primary" text="Ajouter Etablissement">
+        Add new producer
+    </Button>
 
     <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
 

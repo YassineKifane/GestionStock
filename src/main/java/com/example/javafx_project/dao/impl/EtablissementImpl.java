@@ -7,10 +7,7 @@ import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +19,11 @@ public class EtablissementImpl implements EtablissementDao {
         ResultSet rs = null;
         ObservableList<String> etabType = FXCollections.observableArrayList();
         try {
-            ps = conn.prepareStatement("SELECT etabtype FROM etablissement ");
+            ps = conn.prepareStatement("SELECT type FROM etabtype");
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                String type = rs.getString("etabtype");
+                String type = rs.getString("type");
                 etabType.add(type);
             }
         } catch (SQLException e) {
@@ -61,6 +58,37 @@ public class EtablissementImpl implements EtablissementDao {
     }
 
     @Override
+    public void insert(Etablissement etablissement) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = conn.prepareStatement("INSERT INTO etablissement (etabtype, etabnom) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, etablissement.getType());
+            ps.setString(2, etablissement.getNom());
+
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    etablissement.setId(id);
+                }
+                DB.closeResultSet(rs);
+            } else {
+                System.out.println("Aucune ligne renvoyée");
+            }
+        } catch (SQLException e) {
+            System.err.println("Problème d'insertion d'un Etablissement");
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+        }
+    }
+
+    @Override
     public List<Etablissement> findAll(){
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -90,6 +118,20 @@ public class EtablissementImpl implements EtablissementDao {
         }
     }
 
+    @Override
+    public void deleteById(Integer id) {
+        PreparedStatement ps = null;
 
+        try {
+            ps = conn.prepareStatement("DELETE FROM etablissement WHERE id = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Problème de suppression d'un Etablissement");
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+        }
+    }
 
 }
