@@ -35,6 +35,24 @@ public class EtablissementImpl implements EtablissementDao {
         return etabType;
     }
 
+
+    @Override
+    public void updateEtablissement(Etablissement etablissement) {
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE etablissement SET etabtype = ?, etabnom = ? WHERE id = ?");
+            ps.setString(1, etablissement.getType());
+            ps.setString(2, etablissement.getNom());
+            ps.setInt(3, etablissement.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Problème de mise à jour d'un Etablissement");
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+        }
+    }
+
     @Override
     public ObservableList<String> getName() {
         PreparedStatement ps = null;

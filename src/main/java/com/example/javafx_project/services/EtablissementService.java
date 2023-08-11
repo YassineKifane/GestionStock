@@ -3,6 +3,7 @@ package com.example.javafx_project.services;
 
 import com.example.javafx_project.dao.EtablissementDao;
 import com.example.javafx_project.dao.impl.EtablissementImpl;
+import com.example.javafx_project.entities.Article;
 import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.ObservableList;
 
@@ -14,7 +15,7 @@ public class EtablissementService {
     public void save(Etablissement etablissement) {
         etablissementDao.insert(etablissement);
     }
-
+    public void update(Etablissement etablissement) {etablissementDao.updateEtablissement(etablissement);}
     public List<Etablissement> findAll() {
         return etablissementDao.findAll();
     }

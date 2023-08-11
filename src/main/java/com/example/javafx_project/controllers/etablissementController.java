@@ -64,8 +64,8 @@ public class EtablissementController implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        editColumn.setCellFactory(createEditButtonCellFactory());
         deleteColumn.setCellFactory(createDeleteButtonCellFactory());
-        editColumn.setCellFactory(createDeleteButtonCellFactory());
 
         EtablissementTableView.setItems(etablissementsList);
     }
@@ -127,12 +127,13 @@ public class EtablissementController implements Initializable {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditEtablissement.fxml"));
                             Parent parent = loader.load();
+                            EtablissementEditForm etablissementEditForm = loader.getController();
+                            etablissementEditForm.setEtablissement(etablissement);
+                            etablissementEditForm.setEtablissementService(etablissementService);
 
                             Scene scene = new Scene(parent);
-                            Stage stage = new Stage();
+                            Stage stage = (Stage) addEtablissement.getScene().getWindow();
                             stage.setScene(scene);
-                            stage.initStyle(StageStyle.UTILITY);
-                            stage.show();
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }

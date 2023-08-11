@@ -1,8 +1,11 @@
 package com.example.javafx_project.entities;
 
+import javafx.scene.control.Button;
+
 import java.io.Serializable;
 
 public class Etablissement implements Serializable {
+    private Button button;
     private int id;
     private String type;
 
@@ -44,6 +47,14 @@ public class Etablissement implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
     }
 
     @Override

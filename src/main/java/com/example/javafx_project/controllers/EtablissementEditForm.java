@@ -1,5 +1,7 @@
 package com.example.javafx_project.controllers;
 
+import com.example.javafx_project.entities.Article;
+import com.example.javafx_project.entities.Etablissement;
 import com.example.javafx_project.services.ArticleService;
 import com.example.javafx_project.services.EtablissementService;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 
@@ -31,9 +34,29 @@ public class EtablissementEditForm implements Initializable {
     private Button Retour;
 
     private EtablissementService etablissementService;
+    private Etablissement etablissement;
+
+    public void setEtablissementService(EtablissementService etablissementService) {
+        this.etablissementService = etablissementService;
+    }
+
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
+        populateFields();
+    }
 
 
     public void handleValiderButtonAction() {
+        updateEtablissement();
+        etablissementService.update(etablissement);
+        closeForm();
+    }
+
+    private void updateEtablissement() {
+        if (etablissement != null) {
+            etablissement.setType(typefield.getValue().toString());
+            etablissement.setNom(nomfield.getText());
+        }
     }
 
     @Override
@@ -42,6 +65,12 @@ public class EtablissementEditForm implements Initializable {
         populateComboBox();
     }
 
+    private void populateFields() {
+        if (etablissement != null) {
+            typefield.setValue(etablissement.getType());
+            nomfield.setText(etablissement.getNom());
+        }
+    }
     private void populateComboBox() {
         typefield.getItems().addAll(etablissementService.etablissementType());
     }
@@ -74,4 +103,7 @@ public class EtablissementEditForm implements Initializable {
             ex.printStackTrace();
         }
     }
+
+
+
 }

@@ -72,6 +72,7 @@ public class Article implements Serializable {
     public void setDatedajt(Date datedajt) {
         this.datedajt = datedajt;
     }
+
     public Button getButton() {
         return button;
     }
