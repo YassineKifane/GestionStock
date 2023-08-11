@@ -60,6 +60,7 @@ public class DemandeController implements Initializable {
 
 
         articleService.Retrait(article,type,nom);
+        clearFields();
 
     }
     public void handleRetourButton() {
@@ -89,5 +90,15 @@ public class DemandeController implements Initializable {
         designationbox.getItems().addAll(articleService.designationChoice());
         typeetab.getItems().addAll(etablissementService.etablissementType());
         nometab.getItems().addAll(etablissementService.etablissementNom());
+    }
+
+    private void clearFields() {
+
+        quantitefield.clear();
+        designationbox.setValue(null);
+        categoriebox.setValue(null);
+        datefield.setValue(null);
+        typeetab.setValue(null);
+        nometab.setValue(null);
     }
 }
