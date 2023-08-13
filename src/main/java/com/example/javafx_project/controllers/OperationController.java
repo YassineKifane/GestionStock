@@ -23,6 +23,9 @@ public class OperationController {
     @FXML
     private Button opRetrait;
 
+    @FXML
+    private Button Retour;
+
 
 
     public void handleOpAjtButton(ActionEvent actionEvent) {
@@ -50,6 +53,21 @@ public class OperationController {
 
             // Get the stage from the switchButton and set the new scene
             Stage stage = (Stage) opRetrait.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void handleRetourButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) Retour.getScene().getWindow();
             stage.setScene(scene);
 
         } catch (IOException ex) {

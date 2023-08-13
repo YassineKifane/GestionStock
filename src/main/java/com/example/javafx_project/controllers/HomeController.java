@@ -20,6 +20,8 @@ public class HomeController {
 
     @FXML
     private Button Operations;
+    @FXML
+    private Button Logout;
 
     public void handleArticlesButton() {
         try {
@@ -80,4 +82,22 @@ public class HomeController {
             ex.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void handleLogout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) Logout.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

@@ -12,7 +12,7 @@
          <TableColumn fx:id="categorieColumn" prefWidth="96.2" text="Catégorie" />
          <TableColumn fx:id="designationColumn" prefWidth="96.2" text="Désignation" />
          <TableColumn fx:id="quantiteColumn" prefWidth="96.2" text="Quantité" />
-         <TableColumn fx:id="dateColumn" prefWidth="96.2" text="Date" visible="false"/>
+         <TableColumn fx:id="dateColumn" prefWidth="96.2" text="Date" visible="false" />
          <TableColumn fx:id="editColumn" prefWidth="96.2" text="Edit">
             <cellValueFactory>
                <PropertyValueFactory property="button" />
@@ -24,6 +24,7 @@
    <Button fx:id="addArticleForm" layoutX="508.0" layoutY="44.0" onAction="#openArticleForm" styleClass="btn, btn-primary" text="Ajouter Article">
       Add new producer
    </Button>
+   <Button layoutX="528.0" fx:id="Retour" layoutY="184.0" onAction="#handleRetourButton" mnemonicParsing="false" text="Retour" />
 <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
 
 </AnchorPane>

@@ -55,6 +55,9 @@ public class ArticleController implements Initializable {
     @FXML
     private Button addArticleForm;
 
+    @FXML
+    private Button Retour;
+
     private ArticleService articleService;
     private ObservableList<Article> articleList;
     public void openArticleForm() {
@@ -158,5 +161,20 @@ public class ArticleController implements Initializable {
         List<Article> articles = articleService.findAll();
         ArticleTableView.getItems().clear();
         ArticleTableView.getItems().addAll(articles);
+    }
+
+    public void handleRetourButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) Retour.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

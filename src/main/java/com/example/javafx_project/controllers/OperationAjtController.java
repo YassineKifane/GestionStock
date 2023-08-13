@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,6 +52,9 @@ public class OperationAjtController implements Initializable {
 
     @FXML
     private Button btn;
+
+    @FXML
+    private Button Retour;
 
     private ArticleService articleService;
     private ObservableList<Article> articleList;
@@ -146,6 +150,21 @@ public class OperationAjtController implements Initializable {
         List<Article> articles = articleService.findAllOpAjt();
         OperationAjtTableView.getItems().clear();
         OperationAjtTableView.getItems().addAll(articles);
+    }
+
+    public void handleRetourButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/operations.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) Retour.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
 

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.effect.MotionBlur?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationController">
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -21,8 +17,9 @@
                         <MotionBlur radius="4.07" />
                     </effect>
                 </ImageView>
-                <Button layoutX="71.0" fx:id="opAjt" layoutY="216.0" mnemonicParsing="false" onAction="#handleOpAjtButton" prefHeight="47.0" prefWidth="169.0" text="Opérations D'Ajout" />
-                <Button layoutX="411.0" fx:id="opRetrait" layoutY="216.0" mnemonicParsing="false" prefHeight="47.0" onAction="#handleOpRetraitButton" prefWidth="169.0" text="Opérations De Retrait" />
+                <Button fx:id="opAjt" layoutX="71.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleOpAjtButton" prefHeight="47.0" prefWidth="169.0" text="Opérations D'Ajout" />
+                <Button fx:id="opRetrait" layoutX="411.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleOpRetraitButton" prefHeight="47.0" prefWidth="169.0" text="Opérations De Retrait" />
+            <Button fx:id="Retour" layoutX="290.0"  onAction="#handleRetourButton" layoutY="304.0" mnemonicParsing="false" text="Retour" />
             </children>
         </AnchorPane>
     </center>
