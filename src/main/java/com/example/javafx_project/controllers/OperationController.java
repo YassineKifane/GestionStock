@@ -44,7 +44,7 @@ public class OperationController {
 
     public void handleOpRetraitButton(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/article.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/opRetrait.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 

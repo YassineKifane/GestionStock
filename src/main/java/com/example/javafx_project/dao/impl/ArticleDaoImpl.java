@@ -2,8 +2,10 @@ package com.example.javafx_project.dao.impl;
 
 import com.example.javafx_project.dao.ArticleDao;
 import com.example.javafx_project.entities.Article;
+import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,8 +75,31 @@ public class ArticleDaoImpl implements ArticleDao {
     public void operationRetrait(Article article,String type , String nom) {
         PreparedStatement psInsertArticle = null;
         PreparedStatement psInsertOperation = null;
-
         try {
+            // Query the current quantity of the article in the database
+            PreparedStatement psQueryQuantity = conn.prepareStatement("SELECT quantite FROM articles WHERE categories = ? AND designation = ?");
+            psQueryQuantity.setString(1, article.getCategorie());
+            psQueryQuantity.setString(2, article.getDesignation());
+
+            ResultSet rs1 = psQueryQuantity.executeQuery();
+
+            int availableQuantity = 0;
+            if (rs1.next()) {
+                availableQuantity = rs1.getInt("quantite");
+            }
+            DB.closeResultSet(rs1);
+
+            // Compare the entered quantity with the available quantity
+            if (article.getQuantite() > availableQuantity) {
+                // Show a JavaFX prompt indicating not enough items
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Not Enough Items");
+                alert.setHeaderText(null);
+                alert.setContentText("\nThere are not enough items available.");
+                alert.showAndWait();
+                return;
+            }
+
             // Insert or update the articles table
             psInsertArticle = conn.prepareStatement("INSERT INTO articles (categories, designation, quantite, datedajt) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantite = quantite-VALUES(quantite), datedajt = VALUES(datedajt), id = VALUES(id)", Statement.RETURN_GENERATED_KEYS);
             psInsertArticle.setString(1, article.getCategorie());
@@ -117,7 +142,11 @@ public class ArticleDaoImpl implements ArticleDao {
             psInsertOperation.setString(6, type);
             psInsertOperation.setString(7, nom);
             psInsertOperation.executeUpdate();
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful Operation");
+            alert.setHeaderText(null);
+            alert.setContentText("You just accepted the next operation \n"+ article.getCategorie()+" , "+article.getDesignation()+" , "+article.getQuantite()+" , "+type+" , "+nom );
+            alert.showAndWait();
         } catch (SQLException e) {
             System.err.println("Problème d'insertion d'un Article");
             e.printStackTrace();
@@ -251,6 +280,42 @@ public class ArticleDaoImpl implements ArticleDao {
         }
     }
 
+
+    @Override
+    public List<Article> findAllOpRetrait(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT * FROM operationsretrait");
+            rs = ps.executeQuery();
+
+            List<Article> listArticle = new ArrayList<>();
+
+            while (rs.next()) {
+                Article article = new Article();
+                Etablissement etablissement = new Etablissement();
+                article.setId(rs.getInt("id"));
+                article.setCategorie(rs.getString("categories"));
+                article.setDesignation(rs.getString("designation"));
+                article.setQuantite(rs.getInt("quantite"));
+                article.setDatedajt(rs.getDate("datedajt"));
+                etablissement.setType(rs.getString("typeEtab"));
+                etablissement.setNom(rs.getString("nomEtab"));
+                article.setEtablissement(etablissement);
+                listArticle.add(article);
+            }
+
+            return listArticle;
+        } catch (SQLException e) {
+            System.err.println("Problème de requête pour sélectionner un Operations");
+            e.printStackTrace();
+            return null;
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(ps);
+        }
+    }
 
     @Override
     public ObservableList<String> getCategories() {

@@ -18,6 +18,10 @@ public class ArticleService {
         return articleDao.findAllOpAjt();
     }
 
+    public List<Article> findAllOpRetrait() {
+        return articleDao.findAllOpRetrait();
+    }
+
     public void save(Article article) {
         articleDao.insert(article);
     }

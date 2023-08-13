@@ -16,6 +16,7 @@ public interface ArticleDao {
 
     List<Article> findAll();
     List<Article> findAllOpAjt();
+    List<Article> findAllOpRetrait();
 
     ObservableList<String> getCategories();
     ObservableList<String> getDesignations();

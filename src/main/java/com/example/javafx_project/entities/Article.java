@@ -14,6 +14,9 @@ public class Article implements Serializable {
     private String designation;
     private int quantite;
     private Date datedajt;
+    private Etablissement etablissement;
+
+
 
     public Article() {
     }
@@ -79,6 +82,14 @@ public class Article implements Serializable {
 
     public void setButton(Button button) {
         this.button = button;
+    }
+
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
+    }
+
+    public Etablissement getEtablissement() {
+        return etablissement;
     }
 
     @Override
