@@ -11,6 +11,7 @@ import java.util.List;
 public interface EtablissementDao {
     void insert(Etablissement etablissement);
     void updateEtablissement(Etablissement etablissement);
+    ObservableList<String> getNamesByType(String type);
     List<Etablissement> findAll();
     ObservableList<String> getType();
     ObservableList<String> getName();

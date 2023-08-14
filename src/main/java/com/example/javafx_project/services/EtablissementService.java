@@ -20,6 +20,7 @@ public class EtablissementService {
         return etablissementDao.findAll();
     }
     public ObservableList<String> etablissementType(){ return etablissementDao.getType();}
+    public ObservableList<String> getNamesByType(String type){return  etablissementDao.getNamesByType(type);}
     public ObservableList<String> etablissementNom(){ return etablissementDao.getName();}
     public void remove(Etablissement etablissement) {
         etablissementDao.deleteById(etablissement.getId());

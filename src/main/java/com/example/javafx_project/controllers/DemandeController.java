@@ -3,7 +3,9 @@ package com.example.javafx_project.controllers;
 import com.example.javafx_project.entities.Article;
 import com.example.javafx_project.services.ArticleService;
 import com.example.javafx_project.services.EtablissementService;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,7 +85,23 @@ public class DemandeController implements Initializable {
         articleService = new ArticleService();
         etablissementService = new EtablissementService();
         populateComboBox();
+
+        // Associate the event listener with the type ComboBox
+        typeetab.setOnAction(this::onTypeSelected);
     }
+
+    @FXML
+    private void onTypeSelected(Event event) {
+        String selectedType = (String) typeetab.getValue();
+
+        if (selectedType != null) {
+            ObservableList<String> namesByType = etablissementService.getNamesByType(selectedType);
+            nometab.setItems(namesByType);
+        } else {
+            nometab.getItems().clear(); // Clear the nometab ComboBox if no type is selected
+        }
+    }
+
 
     private void populateComboBox() {
         categoriebox.getItems().addAll(articleService.articleChoice());
@@ -91,7 +109,6 @@ public class DemandeController implements Initializable {
         typeetab.getItems().addAll(etablissementService.etablissementType());
         nometab.getItems().addAll(etablissementService.etablissementNom());
     }
-
     private void clearFields() {
 
         quantitefield.clear();
@@ -99,6 +116,6 @@ public class DemandeController implements Initializable {
         categoriebox.setValue(null);
         datefield.setValue(null);
         typeetab.setValue(null);
-        nometab.setValue(null);
+
     }
 }

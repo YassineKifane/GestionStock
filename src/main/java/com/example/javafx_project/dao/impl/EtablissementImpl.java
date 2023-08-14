@@ -6,10 +6,13 @@ import com.example.javafx_project.entities.Article;
 import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EtablissementImpl implements EtablissementDao {
     private Connection conn = DB.getConnection();
@@ -76,6 +79,30 @@ public class EtablissementImpl implements EtablissementDao {
     }
 
     @Override
+    public ObservableList<String> getNamesByType(String type) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> etabnameByType = FXCollections.observableArrayList();
+        try {
+            ps = conn.prepareStatement("SELECT etabnom FROM etablissement WHERE etabtype = ?");
+            ps.setString(1, type);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String nom = rs.getString("etabnom");
+                etabnameByType.add(nom);
+            }
+        } catch (SQLException e) {
+            System.err.println("Problème de requête pour sélectionner les noms d'un Etablissement par type");
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+        }
+        return etabnameByType;
+    }
+
+
+    @Override
     public void insert(Etablissement etablissement) {
         PreparedStatement ps = null;
 
@@ -138,17 +165,31 @@ public class EtablissementImpl implements EtablissementDao {
 
     @Override
     public void deleteById(Integer id) {
-        PreparedStatement ps = null;
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to delete this?");
 
-        try {
-            ps = conn.prepareStatement("DELETE FROM etablissement WHERE id = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Problème de suppression d'un Etablissement");
-            e.printStackTrace();
-        } finally {
-            DB.closeStatement(ps);
+        ButtonType confirmButton = new ButtonType("Confirm");
+        ButtonType cancelButton = new ButtonType("Cancel");
+
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
+            PreparedStatement ps = null;
+
+            try {
+                ps = conn.prepareStatement("DELETE FROM etablissement WHERE id = ?");
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("Problème de suppression d'un Etablissement");
+                e.printStackTrace();
+            } finally {
+                DB.closeStatement(ps);
+            }
         }
     }
 
