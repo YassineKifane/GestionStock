@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -59,16 +60,28 @@ public class EtablissementAddForm implements Initializable {
         typefield.getItems().addAll(etablissementService.etablissementType());
     }
     public void handleValiderButtonAction() {
-        String cat = typefield.getValue().toString();
-        String st = nomfield.getText();
 
-        Etablissement etablissement = new Etablissement();
-        etablissement.setType(cat);
-        etablissement.setNom(st);
+        String cat = typefield.getValue() != null ? typefield.getValue().toString() : null;
+        String des = nomfield.getText() ;
 
-        etablissementService.save(etablissement);
-        clearFields();
-        closeForm();
+        // Additional validation for input fields
+        if (cat == null || des.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all the required fields.");
+            alert.showAndWait();
+            return; // Exit the method if input is not valid
+        }
+        else {
+            Etablissement etablissement = new Etablissement();
+            etablissement.setType(cat);
+            etablissement.setNom(des);
+
+            etablissementService.save(etablissement);
+            clearFields();
+            closeForm();
+        }
     }
 
     private void clearFields() {

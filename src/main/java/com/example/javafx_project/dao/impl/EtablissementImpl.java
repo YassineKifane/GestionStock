@@ -104,6 +104,19 @@ public class EtablissementImpl implements EtablissementDao {
 
     @Override
     public void insert(Etablissement etablissement) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Insertion Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to do add a new Etablissement  \n"+etablissement.getType()+" , "+etablissement.getNom());
+
+        ButtonType confirmButton = new ButtonType("Confirm");
+        ButtonType cancelButton = new ButtonType("Cancel");
+
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
         PreparedStatement ps = null;
 
         try {
@@ -125,11 +138,17 @@ public class EtablissementImpl implements EtablissementDao {
             } else {
                 System.out.println("Aucune ligne renvoyée");
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful Operation");
+            alert.setHeaderText(null);
+            alert.setContentText("You just accepted the next operation \n"+etablissement.getType()+" , "+etablissement.getNom());
+            alert.showAndWait();
         } catch (SQLException e) {
             System.err.println("Problème d'insertion d'un Etablissement");
             e.printStackTrace();
         } finally {
             DB.closeStatement(ps);
+        }
         }
     }
 
