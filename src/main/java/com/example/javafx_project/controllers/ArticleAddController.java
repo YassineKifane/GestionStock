@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -52,11 +49,48 @@ public class ArticleAddController implements Initializable {
     }
     @FXML
     private void handleAddButtonAction() {
-        String cat = categoriebox.getValue().toString(); // Get the selected category from the ComboBox
-        String des = designationbox.getValue().toString();
-        int quan = Integer.parseInt(quantitefield.getText());
-        LocalDate date = datefield.getValue();
+        String quanStr = quantitefield.getText().trim(); // Get the trimmed value from the text field
+        int quan;
 
+        if (!quanStr.isEmpty()) {
+            try {
+                quan = Integer.parseInt(quanStr); // Parse the integer value
+            } catch (NumberFormatException e) {
+                // Handle the case where the input is not a valid integer
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Input Validation");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid quantity.");
+                alert.showAndWait();
+                return; // Exit the method due to invalid input
+            }
+        } else {
+            // Handle the case where the input field is empty
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a quantity.");
+            alert.showAndWait();
+            return; // Exit the method due to missing input
+        }
+
+        String cat = categoriebox.getValue() != null ? categoriebox.getValue().toString() : null;
+        String des = designationbox.getValue() != null ? designationbox.getValue().toString() : null;
+        LocalDate date = datefield.getValue() != null ? datefield.getValue() : null;
+
+
+        // ... (rest of the code)
+
+        // Additional validation for input fields
+        if (cat == null || des == null  ||  date == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all the required fields.");
+            alert.showAndWait();
+            return; // Exit the method if input is not valid
+        }
+        else {
         Article article = new Article();
         article.setCategorie(cat);
         article.setDesignation(des);
@@ -67,6 +101,7 @@ public class ArticleAddController implements Initializable {
 
         clearFields();
         closeForm();
+        }
     }
 
     private void closeForm() {

@@ -17,6 +17,20 @@ public class ArticleDaoImpl implements ArticleDao {
     private Connection conn = DB.getConnection();
     @Override
     public void insert(Article article) {
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Insertion Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to do add a new article  \n"+article.getCategorie()+" , "+article.getDesignation()+" , "+article.getQuantite()+" , " + article.getDatedajt());
+
+        ButtonType confirmButton = new ButtonType("Confirm");
+        ButtonType cancelButton = new ButtonType("Cancel");
+
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
         PreparedStatement psInsertArticle = null;
         PreparedStatement psInsertOperation = null;
 
@@ -61,6 +75,11 @@ public class ArticleDaoImpl implements ArticleDao {
             psInsertOperation.setInt(4, article.getQuantite());
             psInsertOperation.setDate(5, sqlDate);
             psInsertOperation.executeUpdate();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful Operation");
+            alert.setHeaderText(null);
+            alert.setContentText("You just accepted the next operation \n"+ article.getCategorie()+" , "+article.getDesignation()+" , "+article.getQuantite()+" , "+article.getDatedajt() );
+            alert.showAndWait();
 
         } catch (SQLException e) {
             System.err.println("Problème d'insertion d'un Article");
@@ -68,6 +87,7 @@ public class ArticleDaoImpl implements ArticleDao {
         } finally {
             DB.closeStatement(psInsertArticle);
             DB.closeStatement(psInsertOperation);
+        }
         }
     }
 
@@ -79,7 +99,7 @@ public class ArticleDaoImpl implements ArticleDao {
 
 
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setTitle("Retrait Confirmation");
         confirmationAlert.setHeaderText(null);
         confirmationAlert.setContentText("Are you sure you want to do this operation?");
 
