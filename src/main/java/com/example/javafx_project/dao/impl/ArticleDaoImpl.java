@@ -76,6 +76,8 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public void operationRetrait(Article article,String type , String nom) {
 
+
+
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Delete Confirmation");
         confirmationAlert.setHeaderText(null);

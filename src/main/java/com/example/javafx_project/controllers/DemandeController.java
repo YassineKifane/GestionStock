@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,22 +44,60 @@ public class DemandeController implements Initializable {
     private EtablissementService etablissementService;
 
     public void handleAddButtonAction() {
-        String cat = categoriebox.getValue().toString(); // Get the selected category from the ComboBox
-        String des = designationbox.getValue().toString();
-        int quan = Integer.parseInt(quantitefield.getText());
-        LocalDate date = datefield.getValue();
-        String type = typeetab.getValue().toString();
-        String nom = nometab.getValue().toString();
+        String quanStr = quantitefield.getText().trim(); // Get the trimmed value from the text field
+        int quan;
+
+        if (!quanStr.isEmpty()) {
+            try {
+                quan = Integer.parseInt(quanStr); // Parse the integer value
+            } catch (NumberFormatException e) {
+                // Handle the case where the input is not a valid integer
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Input Validation");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid quantity.");
+                alert.showAndWait();
+                return; // Exit the method due to invalid input
+            }
+        } else {
+            // Handle the case where the input field is empty
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a quantity.");
+            alert.showAndWait();
+            return; // Exit the method due to missing input
+        }
+
+        String cat = categoriebox.getValue() != null ? categoriebox.getValue().toString() : null;
+        String des = designationbox.getValue() != null ? designationbox.getValue().toString() : null;
+        LocalDate date = datefield.getValue() != null ? datefield.getValue() : null;
+        String type = typeetab.getValue() != null ? typeetab.getValue().toString() : null;
+        String nom = nometab.getValue() != null ? nometab.getValue().toString() : null;
+
+        // ... (rest of the code)
+
+        // Additional validation for input fields
+        if (cat == null || des == null || type == null || nom == null ||  date == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all the required fields.");
+            alert.showAndWait();
+            return; // Exit the method if input is not valid
+        }
+        else {
 
         Article article = new Article();
         article.setCategorie(cat);
         article.setDesignation(des);
-        article.setQuantite(quan);
+        article.setQuantite(Integer.parseInt(quanStr));
         article.setDatedajt(Date.valueOf(date));
 
 
         articleService.Retrait(article,type,nom);
         clearFields();
+        }
 
     }
     public void handleRetourButton() {
