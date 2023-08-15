@@ -6,10 +6,12 @@ import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ArticleDaoImpl implements ArticleDao {
     private Connection conn = DB.getConnection();
@@ -73,6 +75,22 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public void operationRetrait(Article article,String type , String nom) {
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to do this operation?");
+
+        ButtonType confirmButton = new ButtonType("Confirm");
+        ButtonType cancelButton = new ButtonType("Cancel");
+
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
+
+
         PreparedStatement psInsertArticle = null;
         PreparedStatement psInsertOperation = null;
         try {
@@ -153,7 +171,7 @@ public class ArticleDaoImpl implements ArticleDao {
         } finally {
             DB.closeStatement(psInsertArticle);
             DB.closeStatement(psInsertOperation);
-        }
+        }}
     }
 
 
