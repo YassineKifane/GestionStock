@@ -29,6 +29,6 @@
 
     <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
     <Button fx:id="btn" layoutX="508.0" layoutY="353.0"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout"  visible="false"/>
-    <Button layoutX="528.0" fx:id="Retour" layoutY="184.0" onAction="#handleRetourButton" mnemonicParsing="false" text="Retour" />
+    <Button layoutX="580.0" fx:id="Retour" layoutY="184.0" onAction="#handleRetourButton" mnemonicParsing="false" text="Retour" />
 
 </AnchorPane>

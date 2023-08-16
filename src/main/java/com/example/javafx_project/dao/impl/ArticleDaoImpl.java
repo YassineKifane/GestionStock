@@ -240,6 +240,29 @@ public class ArticleDaoImpl implements ArticleDao {
             DB.closeStatement(ps);
         }
     }
+
+    @Override
+    public void updateOperationRetrait(Article article) {
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE operationsretrait SET categories = ?, designation = ?, quantite = ?, datedajt = ?, typeEtab = ?, nomEtab = ? WHERE Id = ?");
+            ps.setString(1, article.getCategorie());
+            ps.setString(2, article.getDesignation());
+            ps.setInt(3, article.getQuantite());
+            ps.setDate(4, article.getDatedajt());
+            ps.setString(5, article.getEtablissement().getType());
+            ps.setString(6, article.getEtablissement().getNom());
+            ps.setInt(7, article.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Problème de mise à jour d'un operations");
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+        }
+    }
+
     @Override
     public void deleteById(Integer id) {
         PreparedStatement ps = null;

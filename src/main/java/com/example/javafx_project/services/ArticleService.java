@@ -3,6 +3,7 @@ package com.example.javafx_project.services;
 import com.example.javafx_project.dao.ArticleDao;
 import com.example.javafx_project.dao.impl.ArticleDaoImpl;
 import com.example.javafx_project.entities.Article;
+import com.example.javafx_project.entities.Etablissement;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -36,6 +37,8 @@ public class ArticleService {
     public void updateOperation(Article article) {
         articleDao.updateOperation(article);
     }
+
+    public void updateOperationRetrait(Article article){articleDao.updateOperationRetrait(article);}
 
     public void remove(Article article) {
         articleDao.deleteById(article.getId());

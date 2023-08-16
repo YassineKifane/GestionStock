@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -91,9 +90,9 @@ public class OperationAjtController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/operationEditForm.fxml"));
             Parent root = loader.load();
-            OperationEditController operationEditController= loader.getController();
-            operationEditController.setArticle(article);
-            operationEditController.setArticleService(articleService);
+            OperationAjtEditController operationAjtEditController = loader.getController();
+            operationAjtEditController.setArticle(article);
+            operationAjtEditController.setArticleService(articleService);
             Scene scene = new Scene(root);
 
             // Get the stage from the switchButton and set the new scene

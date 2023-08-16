@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class OperationEditController implements Initializable {
+public class OperationAjtEditController implements Initializable {
     private Article article;
     @FXML
     private ComboBox categoriebox;

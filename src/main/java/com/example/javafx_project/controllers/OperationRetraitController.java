@@ -13,10 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -82,11 +84,62 @@ public class OperationRetraitController implements Initializable {
         nomColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEtablissement().getNom()));
         quantiteColumn.setCellValueFactory(new PropertyValueFactory<>("quantite"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("datedajt"));
-
+        editColumn.setCellFactory(createEditButtonCellFactory());
 
 
         OperationRetraitTableView.setItems(articleList);
     }
+
+
+    public void openEditOperationForm(Article article) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/opRetraitEdit.fxml"));
+            Parent root = loader.load();
+            OperationRetraitEditController operationRetraitEditController = loader.getController();
+            operationRetraitEditController.setArticle(article);
+            operationRetraitEditController.setArticleService(articleService);
+            Scene scene = new Scene(root);
+
+            // Get the stage from the switchButton and set the new scene
+            Stage stage = (Stage) btn.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private Callback<TableColumn<Article, Button>, TableCell<Article, Button>> createEditButtonCellFactory() {
+        return new Callback<>() {
+            @Override
+            public TableCell<Article, Button> call(TableColumn<Article, Button> column) {
+                return new TableCell<>() {
+                    private final Button editButton = new Button("Edit");
+
+                    {
+                        editButton.setOnAction(event -> {
+                            Article article = getTableView().getItems().get(getIndex());
+                            System.out.println(article);
+                            openEditOperationForm(article);
+
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Button item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!empty) {
+                            setGraphic(editButton);
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+        };
+    }
+
 
     private void startAutoRefresh() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {

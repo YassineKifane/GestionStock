@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationEditController">
+<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationAjtEditController">
     <children>
         <Label layoutX="14.0" layoutY="74.0" prefHeight="17.0" prefWidth="95.0" text="Categorie" />
         <ComboBox fx:id="categoriebox" layoutX="14.0" layoutY="111.0" prefWidth="150.0" />
