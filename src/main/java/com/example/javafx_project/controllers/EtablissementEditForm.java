@@ -10,14 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -47,9 +46,46 @@ public class EtablissementEditForm implements Initializable {
 
 
     public void handleValiderButtonAction() {
-        updateEtablissement();
-        etablissementService.update(etablissement);
-        closeForm();
+
+
+        String cat = typefield.getValue() != null ? typefield.getValue().toString() : null;
+        String des = nomfield.getText() ;
+
+        // Additional validation for input fields
+        if (cat == null || des.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Input Validation");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all the required fields.");
+            alert.showAndWait();
+            return; // Exit the method if input is not valid
+        }
+        else {
+
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Update Confirmation");
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setContentText("Are you sure you want to do edit the etablissement  \n" + etablissement.getType() + " , " + etablissement.getNom() + "\nto the new etablissement \n"
+                    + typefield.getValue().toString() + " , " + nomfield.getText());
+
+            ButtonType confirmButton = new ButtonType("Confirm");
+            ButtonType cancelButton = new ButtonType("Cancel");
+
+            confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+            if (result.isPresent() && result.get() == confirmButton) {
+                updateEtablissement();
+                etablissementService.update(etablissement);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successful Operation");
+                alert.setHeaderText(null);
+                alert.setContentText("Update Succeeded");
+                alert.showAndWait();
+                closeForm();
+            }
+        }
     }
 
     private void updateEtablissement() {
