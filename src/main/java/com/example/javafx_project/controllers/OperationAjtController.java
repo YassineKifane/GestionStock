@@ -64,7 +64,6 @@ public class OperationAjtController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         articleService = new ArticleService();
-        startAutoRefresh();
         loadOperation();
         setupTableView();
     }

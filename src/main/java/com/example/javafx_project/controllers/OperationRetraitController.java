@@ -66,7 +66,6 @@ public class OperationRetraitController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         articleService = new ArticleService();
-        startAutoRefresh();
         loadOperation();
         setupTableView();
     }
