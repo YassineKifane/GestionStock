@@ -7,15 +7,13 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -25,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class OperationRetraitController implements Initializable {
@@ -169,4 +168,25 @@ public class OperationRetraitController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    public void handleExportButton() throws Exception {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Export Confirmation");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("You are about to export this Tableview to excel.");
+
+        ButtonType confirmButton = new ButtonType("Confirm");
+        ButtonType cancelButton = new ButtonType("Cancel");
+
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
+
+            articleService.writingOpRetraitExcelFile(articleList);
+        }
+    }
 }
+
+

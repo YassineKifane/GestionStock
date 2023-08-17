@@ -16,6 +16,11 @@ public interface ArticleDao {
 
     void deleteById(Integer id);
 
+
+    void writingOpAjtExcelFile(ObservableList<Article> list) throws Exception;
+
+    void writingOpRetraitExcelFile(ObservableList<Article> list) throws Exception;
+
     List<Article> findAll();
     List<Article> findAllOpAjt();
     List<Article> findAllOpRetrait();

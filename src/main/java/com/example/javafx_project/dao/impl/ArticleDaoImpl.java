@@ -7,7 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -423,4 +430,109 @@ public class ArticleDaoImpl implements ArticleDao {
         }
         return Designations;
     }
+
+    public void writingOpAjtExcelFile(ObservableList<Article> list ) throws Exception{
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Operations d'Ajout");
+
+        // Create header row
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("ID");
+        headerRow.createCell(1).setCellValue("Catégory");
+        headerRow.createCell(2).setCellValue("Designation");
+        headerRow.createCell(3).setCellValue("Quantité");
+        headerRow.createCell(4).setCellValue("Date d'ajout");
+
+        // Create data rows
+        int rowNum = 1;
+        for (Article article : list) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(article.getId());
+            row.createCell(1).setCellValue(article.getCategorie());
+            row.createCell(2).setCellValue(article.getDesignation());
+            row.createCell(3).setCellValue(article.getQuantite());
+            row.createCell(4).setCellValue(article.getDatedajt());
+        }
+
+        // Auto-size columns
+        for (int i = 0; i < 5; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Write the workbook to a file
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream( new File("src/main/resources/files/outputAjtData.xlsx"));
+            workbook.write(outputStream);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful Operation");
+            alert.setHeaderText(null);
+            alert.setContentText("Data successfully written to Excel file.");
+            alert.showAndWait();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void writingOpRetraitExcelFile(ObservableList<Article> list ) throws Exception{
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Operations de Retrait");
+
+        // Create header row
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("ID");
+        headerRow.createCell(1).setCellValue("Catégory");
+        headerRow.createCell(2).setCellValue("Designation");
+        headerRow.createCell(3).setCellValue("Type d'Etablissement");
+        headerRow.createCell(4).setCellValue("Nom d'Etablissement");
+        headerRow.createCell(5).setCellValue("Quantité");
+        headerRow.createCell(6).setCellValue("Date d'ajout");
+
+        // Create data rows
+        int rowNum = 1;
+        for (Article article : list) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(article.getId());
+            row.createCell(1).setCellValue(article.getCategorie());
+            row.createCell(2).setCellValue(article.getDesignation());
+            row.createCell(3).setCellValue(article.getEtablissement().getType());
+            row.createCell(4).setCellValue(article.getEtablissement().getNom());
+            row.createCell(5).setCellValue(article.getQuantite());
+            row.createCell(6).setCellValue(article.getDatedajt());
+        }
+
+        // Auto-size columns
+        for (int i = 0; i < 7; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Write the workbook to a file
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream( new File("src/main/resources/files/outputRetraitData.xlsx"));
+            workbook.write(outputStream);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful Operation");
+            alert.setHeaderText(null);
+            alert.setContentText("Data successfully written to Excel file.");
+            alert.showAndWait();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+            workbook.close();
+        }
+
+
+    }
+
+
+
 }

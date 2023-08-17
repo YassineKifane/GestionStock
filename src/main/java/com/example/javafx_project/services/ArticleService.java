@@ -40,10 +40,20 @@ public class ArticleService {
 
     public void updateOperationRetrait(Article article){articleDao.updateOperationRetrait(article);}
 
+
     public void remove(Article article) {
         articleDao.deleteById(article.getId());
     }
 
     public ObservableList<String> articleChoice(){ return articleDao.getCategories();}
     public ObservableList<String> designationChoice(){ return articleDao.getDesignations();}
+
+    public void writingOpAjtExcelFile(ObservableList<Article> list) throws Exception{
+        articleDao.writingOpAjtExcelFile(list);
+    }
+
+    public void writingOpRetraitExcelFile(ObservableList<Article> list) throws Exception{
+        articleDao.writingOpRetraitExcelFile(list);
+    }
+
 }

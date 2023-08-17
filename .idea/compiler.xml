@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="javafx_project" />
+        <module name="JavaFX-CRUD" />
       </profile>
     </annotationProcessing>
   </component>

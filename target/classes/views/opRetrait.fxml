@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.OperationRetraitController">
 
     <TableView fx:id="OperationRetraitTableView" prefHeight="418.0" prefWidth="570.0">
@@ -17,7 +14,7 @@
             <TableColumn fx:id="typeColumn" prefWidth="71" text="Type d'Etablissement" />
             <TableColumn fx:id="nomColumn" prefWidth="71" text="Nom d'Etablissement" />
             <TableColumn fx:id="quantiteColumn" prefWidth="71" text="Quantité" />
-            <TableColumn fx:id="dateColumn" prefWidth="71" text="Date d'Ajout"/>
+            <TableColumn fx:id="dateColumn" prefWidth="71" text="Date d'Ajout" />
             <TableColumn fx:id="editColumn" prefWidth="71" text="Edit">
                 <cellValueFactory>
                     <PropertyValueFactory property="button" />
@@ -28,7 +25,8 @@
 
 
     <!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
-    <Button fx:id="btn" layoutX="508.0" layoutY="353.0"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout"  visible="false"/>
-    <Button layoutX="580.0" fx:id="Retour" layoutY="184.0" onAction="#handleRetourButton" mnemonicParsing="false" text="Retour" />
+    <Button fx:id="btn" layoutX="508.0" layoutY="353.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" visible="false" />
+    <Button fx:id="Retour" layoutX="580.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleRetourButton" text="Retour" />
+   <Button layoutX="580.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleExportButton" text="Export" />
 
 </AnchorPane>
