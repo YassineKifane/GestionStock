@@ -18,6 +18,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -48,8 +49,7 @@ public class EtablissementController implements Initializable {
     @FXML
     private Button addEtablissement;
 
-    @FXML
-    private Button Retour;
+
 
     private EtablissementService etablissementService;
 
@@ -76,13 +76,6 @@ public class EtablissementController implements Initializable {
         List<Etablissement> etablissements = etablissementService.findAll();
         etablissementsList = FXCollections.observableArrayList(etablissements);
     }
-    private void startAutoRefresh() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            refreshTableView();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
 
 
     private void refreshTableView() {
@@ -93,11 +86,18 @@ public class EtablissementController implements Initializable {
 
     public void openEtablissementForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/etablissementForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
+            tstController tstController = loader.getController();
+
+            // Load the content of artocme.fxml into pnlArticle
+            FXMLLoader etablissementLoader = new FXMLLoader(getClass().getResource("/views/etablissementForm.fxml"));
+            BorderPane etablissementContent = etablissementLoader.load();
+            tstController.setEtablissementContent(etablissementContent.getCenter());
+
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) addEtablissement.getScene().getWindow();
             stage.setScene(scene);
 
@@ -127,15 +127,24 @@ public class EtablissementController implements Initializable {
 
                     private void openEditEtablissementForm(Etablissement etablissement) {
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditEtablissement.fxml"));
-                            Parent parent = loader.load();
-                            EtablissementEditForm etablissementEditForm = loader.getController();
+                            FXMLLoader tstLoader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
+                            Parent root = tstLoader.load();
+
+                            tstController tstController = tstLoader.getController();
+
+                            FXMLLoader etablissementLoader = new FXMLLoader(getClass().getResource("/views/EditEtablissement.fxml"));
+                            Parent etablissementContent = etablissementLoader.load();
+                            EtablissementEditForm etablissementEditForm = etablissementLoader.getController(); // Get the controller after loading the FXML
+
                             etablissementEditForm.setEtablissement(etablissement);
                             etablissementEditForm.setEtablissementService(etablissementService);
+                            tstController.setEtablissementContent(etablissementContent);
 
-                            Scene scene = new Scene(parent);
+                            // Set the scene with the updated content
+                            Scene scene = new Scene(root);
                             Stage stage = (Stage) addEtablissement.getScene().getWindow();
                             stage.setScene(scene);
+
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
@@ -184,18 +193,5 @@ public class EtablissementController implements Initializable {
         };
     }
 
-    public void handleRetourButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
-            Stage stage = (Stage) Retour.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 }

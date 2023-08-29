@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
         loginController.setUserService(userService);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setResizable(false);
-        stage.getIcons().add(new Image("C:/Users/HP/Desktop/Stage DPO/JavaFX-CRUD/src/main/resources/img/logo.jpg"));
+        stage.getIcons().add(new Image("C:/Users/HP/Desktop/Stage DPO/JavaFX-CRUD/src/main/resources/img/logo.png"));
         stage.setTitle("Direction Provinciale d'Oriental");
         stage.setScene(scene);
         stage.show();

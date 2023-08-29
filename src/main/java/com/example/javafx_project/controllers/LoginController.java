@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -44,15 +45,21 @@ public class LoginController {
             showInfoAlert("Login Successful", "Welcome, " + username + "!");
             try {
                 // Load the FXML file for the new scene
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
                 Parent root = loader.load();
 
-                // Create a new scene with the loaded FXML
-                Scene scene = new Scene(root);
+                tstController tstController = loader.getController();
 
-                // Get the stage from the switchButton and set the new scene
+                // Load the content of artocme.fxml into pnlArticle
+                FXMLLoader articleLoader = new FXMLLoader(getClass().getResource("/views/article.fxml"));
+                BorderPane articleContent = articleLoader.load();
+                tstController.setArticleContent(articleContent.getCenter());
+
+                // Set the scene with the updated content
+                Scene scene = new Scene(root);
                 Stage stage = (Stage) LoginButton.getScene().getWindow();
                 stage.setScene(scene);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

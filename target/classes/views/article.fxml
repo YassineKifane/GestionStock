@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="418.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.ArticleController">
-
-   <TableView fx:id="ArticleTableView" prefHeight="418.0" prefWidth="481.0">
+<BorderPane prefHeight="554.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.controllers.ArticleController">
+   <center>
+      <AnchorPane prefHeight="42.0" prefWidth="712.0" style="-fx-background-color: #02030A;">
+         <children>
+         <Label layoutX="14.0" layoutY="24.0" text="Articles" textFill="#e7e5e5">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Label>
+   <TableView fx:id="ArticleTableView" layoutX="1" layoutY="97.0" prefHeight="481.0" prefWidth="795.0">
       <columns>
-         <TableColumn fx:id="idColumn" prefWidth="96.2" text="ID" />
-         <TableColumn fx:id="categorieColumn" prefWidth="96.2" text="Catégorie" />
-         <TableColumn fx:id="designationColumn" prefWidth="96.2" text="Désignation" />
-         <TableColumn fx:id="quantiteColumn" prefWidth="96.2" text="Quantité" />
-         <TableColumn fx:id="dateColumn" prefWidth="96.2" text="Date" visible="false" />
-         <TableColumn fx:id="editColumn" prefWidth="96.2" text="Edit">
+         <TableColumn fx:id="idColumn" prefWidth="159.0" text="ID" />
+         <TableColumn fx:id="categorieColumn" prefWidth="159.0" text="Catégorie" />
+         <TableColumn fx:id="designationColumn" prefWidth="159.0" text="Désignation" />
+         <TableColumn fx:id="quantiteColumn" prefWidth="158.0" text="Quantité" />
+         <TableColumn fx:id="dateColumn" prefWidth="0" text="Date" visible="false" />
+         <TableColumn fx:id="editColumn" prefWidth="156.0" text="Edit">
             <cellValueFactory>
                <PropertyValueFactory property="button" />
             </cellValueFactory>
@@ -21,10 +35,20 @@
       </columns>
    </TableView>
 
-   <Button fx:id="addArticleForm" layoutX="508.0" layoutY="44.0" onAction="#openArticleForm" styleClass="btn, btn-primary" text="Ajouter Article">
-      Add new producer
-   </Button>
-   <Button layoutX="528.0" fx:id="Retour" layoutY="184.0" onAction="#handleRetourButton" mnemonicParsing="false" text="Retour" />
-<!--   <Button layoutX="508.0" layoutY="353.0" onAction="#handleLogout"  mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Logout" />-->
 
-</AnchorPane>
+            <Button fx:id="addArticleForm" layoutX="570.0" layoutY="19.0" mnemonicParsing="false" onAction="#openArticleForm" prefHeight="53.0" prefWidth="200.0" stylesheets="@style.css" text="Ajouter Article" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <effect>
+                  <InnerShadow>
+                     <color>
+                        <Color red="0.21052631735801697" green="0.21052631735801697" blue="0.21052631735801697" />
+                     </color>
+                  </InnerShadow>
+               </effect></Button>
+
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,8 +32,7 @@ public class ArticleAddController implements Initializable {
     private DatePicker datefield;
     @FXML
     private Button Valider;
-    @FXML
-    private Button Retour;
+
 
     private ArticleService articleService;
 
@@ -106,11 +106,19 @@ public class ArticleAddController implements Initializable {
 
     private void closeForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/article.fxml"));
+            // Load the FXML file for the new scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
+            tstController tstController = loader.getController();
+
+            // Load the content of artocme.fxml into pnlArticle
+            FXMLLoader articleLoader = new FXMLLoader(getClass().getResource("/views/article.fxml"));
+            BorderPane articleContent = articleLoader.load();
+            tstController.setArticleContent(articleContent.getCenter());
+
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) Valider.getScene().getWindow();
             stage.setScene(scene);
 
@@ -126,18 +134,5 @@ public class ArticleAddController implements Initializable {
         datefield.setValue(null);
     }
 
-    public void handleRetourButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/article.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
-            Stage stage = (Stage) Retour.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 }

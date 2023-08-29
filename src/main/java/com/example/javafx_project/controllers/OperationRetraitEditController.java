@@ -40,8 +40,7 @@ public class OperationRetraitEditController implements Initializable {
     private DatePicker datefield;
     @FXML
     private Button Valider;
-    @FXML
-    private Button Retour;
+
 
     private ArticleService articleService;
     private EtablissementService etablissementService;
@@ -177,28 +176,20 @@ public class OperationRetraitEditController implements Initializable {
     }
 
 
-    public void handleRetourButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/opRetrait.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Get the stage from the switchButton and set the new scene
-            Stage stage = (Stage) Retour.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void closeForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/opRetrait.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
+            FXMLLoader tstLoader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
+            Parent root = tstLoader.load();
 
-            // Get the stage from the switchButton and set the new scene
+            tstController tstController = tstLoader.getController();
+
+            FXMLLoader opLoader = new FXMLLoader(getClass().getResource("/views/opRetrait.fxml"));
+            Parent OpAjtContent = opLoader.load();
+
+            tstController.setArticleContent(OpAjtContent);
+
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) Valider.getScene().getWindow();
             stage.setScene(scene);
 

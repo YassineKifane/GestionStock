@@ -17,6 +17,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -55,18 +56,24 @@ public class ArticleController implements Initializable {
     @FXML
     private Button addArticleForm;
 
-    @FXML
-    private Button Retour;
+
 
     private ArticleService articleService;
     private ObservableList<Article> articleList;
     public void openArticleForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/articleform.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
+            tstController tstController = loader.getController();
+
+            // Load the content of artocme.fxml into pnlArticle
+            FXMLLoader articleLoader = new FXMLLoader(getClass().getResource("/views/articleform.fxml"));
+            BorderPane articleContent = articleLoader.load();
+            tstController.setArticleContent(articleContent.getCenter());
+
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) addArticleForm.getScene().getWindow();
             stage.setScene(scene);
 
@@ -77,14 +84,21 @@ public class ArticleController implements Initializable {
 
     public void openEditArticleForm(Article article) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/articleEditForm.fxml"));
-            Parent root = loader.load();
-            ArticleEditController articleEditController = loader.getController();
+            FXMLLoader tstLoader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
+            Parent root = tstLoader.load();
+
+            tstController tstController = tstLoader.getController();
+
+            FXMLLoader articleLoader = new FXMLLoader(getClass().getResource("/views/articleEditForm.fxml"));
+            Parent articleContent = articleLoader.load();
+            ArticleEditController articleEditController = articleLoader.getController(); // Get the controller after loading the FXML
+
             articleEditController.setArticle(article);
             articleEditController.setArticleService(articleService);
-            Scene scene = new Scene(root);
+            tstController.setArticleContent(articleContent);
 
-            // Get the stage from the switchButton and set the new scene
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) addArticleForm.getScene().getWindow();
             stage.setScene(scene);
 
@@ -148,33 +162,5 @@ public class ArticleController implements Initializable {
 
         ArticleTableView.setItems(articleList);
     }
-    private void startAutoRefresh() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            refreshTableView();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
 
-
-    private void refreshTableView() {
-        List<Article> articles = articleService.findAll();
-        ArticleTableView.getItems().clear();
-        ArticleTableView.getItems().addAll(articles);
-    }
-
-    public void handleRetourButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Get the stage from the switchButton and set the new scene
-            Stage stage = (Stage) Retour.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 }

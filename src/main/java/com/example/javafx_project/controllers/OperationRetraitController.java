@@ -56,8 +56,6 @@ public class OperationRetraitController implements Initializable {
     @FXML
     private Button btn;
 
-    @FXML
-    private Button Retour;
     private ArticleService articleService;
     private ObservableList<Article> articleList;
 
@@ -91,14 +89,22 @@ public class OperationRetraitController implements Initializable {
 
     public void openEditOperationForm(Article article) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/opRetraitEdit.fxml"));
-            Parent root = loader.load();
-            OperationRetraitEditController operationRetraitEditController = loader.getController();
-            operationRetraitEditController.setArticle(article);
-            operationRetraitEditController.setArticleService(articleService);
-            Scene scene = new Scene(root);
 
-            // Get the stage from the switchButton and set the new scene
+            FXMLLoader tstLoader = new FXMLLoader(getClass().getResource("/views/tst.fxml"));
+            Parent root = tstLoader.load();
+
+            tstController tstController = tstLoader.getController();
+
+            FXMLLoader opLoader = new FXMLLoader(getClass().getResource("/views/opRetraitEdit.fxml"));
+            Parent OpRetraitContent = opLoader.load();
+            OperationRetraitEditController  operationRetraitController = opLoader.getController(); // Get the controller after loading the FXML
+
+            operationRetraitController.setArticle(article);
+            operationRetraitController.setArticleService(articleService);
+            tstController.setArticleContent(OpRetraitContent);
+
+            // Set the scene with the updated content
+            Scene scene = new Scene(root);
             Stage stage = (Stage) btn.getScene().getWindow();
             stage.setScene(scene);
 
@@ -154,20 +160,6 @@ public class OperationRetraitController implements Initializable {
         OperationRetraitTableView.getItems().addAll(articles);
     }
 
-    public void handleRetourButton() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/operations.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Get the stage from the switchButton and set the new scene
-            Stage stage = (Stage) Retour.getScene().getWindow();
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public void handleExportButton() throws Exception {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
